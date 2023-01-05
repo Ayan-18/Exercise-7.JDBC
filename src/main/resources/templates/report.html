@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table border="1">
+    <tr>
+        <th>Группа</th>
+        <th>Мин показание</th>
+        <th>Макс показание</th>
+        <th>Расход</th>
+    </tr>
+
+    <th:block th:each="report:${reports}">
+        <tr>
+            <td th:text="${report.getKey()}"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr th:each="dto:${report.getValue()}">
+            <td>сч. <span th:text="${dto.getMeterId()}"></span> (<span th:text="${dto.getMeterType()}"></span>)</td>
+            <td th:text="${dto.getFirstReading()}"></td>
+            <td th:text="${dto.getLastReading()}"></td>
+            <td th:text="${dto.getLastReading()-dto.getFirstReading()}"></td>
+        </tr>
+        <tr>
+            <td colspan="3">Итого <span th:text="${report.getKey()}"></span>:</td>
+            <td th:text="${total.get(report.key)}"></td>
+        </tr>
+    </th:block>
+    <tr>
+        <td colspan="3">Всего</td>
+        <td th:text="${total.get('all')}"></td>
+    </tr>
+</table>
+
+</body>
+</html>
